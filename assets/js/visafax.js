@@ -39,4 +39,48 @@ jQuery(document).ready(function($) {
 
         return false;
     });
+
+
+
 });
+
+
+    // country flags custom select options 
+    const customSelects = document.querySelectorAll('.select_option');
+
+    customSelects.forEach(selectOption => {
+        selectOption.addEventListener('click', function () {
+            const dropdown = this.nextElementSibling; // Assuming dropdown is next to the selected option
+
+            // Toggle dropdown visibility
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+            } else {
+                dropdown.style.display = 'block';
+            }
+
+            // Handle the option selection
+            dropdown.querySelectorAll('div').forEach(option => {
+                option.addEventListener('click', function () {
+                    const selectElement = document.getElementById(selectOption.dataset.select);
+
+                    // Update the hidden select element value
+                    selectElement.value = this.dataset.value;
+
+                    // Update the displayed value
+                    const img = selectOption.querySelector('img');
+                    const span = selectOption.querySelector('span');
+
+                    if (img) {
+                        img.src = this.dataset.image || '';
+                    }
+                    if (span) {
+                        span.textContent = this.textContent;
+                    }
+
+                    // Hide the dropdown
+                    dropdown.style.display = 'none';
+                });
+            });
+        });
+    });

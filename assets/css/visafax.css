@@ -39,17 +39,62 @@
 }
 
 
-.select-box .flag-select {
+/* Hide the actual select element */
+.hide-select {
+  display: none;
+}
+
+/* Style the custom dropdown */
+.select_option {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  position: relative;
   width: 100%;
-  padding: 5px;
-  padding-left: 20px;
-  border: 1px solid #EDF3F5;
-  background-position: right 10px center;
-  background-repeat: no-repeat;
-  appearance: none; /* Hide default arrow */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-size: 20px; /* Flag size */
+  max-width: 228.08px;
+}
+
+/* Style for the selected option */
+.select_option img {
+  width: 24px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.select_option span {
+  flex-grow: 1;
+}
+
+/* Dropdown list styling */
+.custom_dropdown {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 228.08px;
+  z-index: 999;
+}
+
+.custom_dropdown div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.custom_dropdown div:hover {
+  background-color: #ddd;
+}
+
+.custom_dropdown div > img {
+  display: inline-block;
+  margin-right: 10px;
+  width: 24px;
+  height: auto;
 }
 
 
@@ -58,7 +103,7 @@
   background: #00cc99;
   border: none;
   outline: none;
-  padding: 18.7px 20px;
+  padding: 16.2px 20px;
   margin-top: 38px;
   min-width: 190px;
   

@@ -1,9 +1,9 @@
 <?php
 /*
- * Plugin Name:       Visa Search Form
+ * Plugin Name:       VisaFax Plugin
  * Plugin URI:        https://github.com/glmfrk/visafax-plugin
  * Description:       This is a country with a visa filtering search box for travel management websites.
- * Version:           1.0.0
+ * Version:           1.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            Gulam Faruk
@@ -11,7 +11,7 @@
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Update URI:        https://example.com/my-plugin/
- * Text Domain:       search_visa
+ * Text Domain:       visafax
  * Domain Path:       /languages
  */
 
