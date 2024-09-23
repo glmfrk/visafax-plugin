@@ -31,8 +31,8 @@ function search_filter_box_shortcode() {
 
                     <!-- Custom Dropdown (Citizen Country) -->
                     <div class="select_option" data-select="citizen_country">
-                        <img src="" alt="" />
-                        <span><?php esc_html_e('Select your country', 'visafax'); ?></span>
+                        <img src="<?php echo esc_attr($country_image); ?>" alt="">
+                        <?php echo esc_html($country->name); ?>
                     </div>
 
                     <div class="custom_dropdown">
