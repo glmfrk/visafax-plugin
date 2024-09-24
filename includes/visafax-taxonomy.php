@@ -36,3 +36,57 @@ function visafax_register_taxonomies() {
         register_taxonomy($taxonomy, array('evisa_country'), $args);
     }
 }
+
+
+// Add image upload field to 'Add New' form
+function visafax_add_taxonomy_image_field() {
+    ?>
+    <div class="form-field term-group">
+        <label for="visafax_image"><?php _e( 'Country Flag', 'visafax' ); ?></label>
+        <input type="button" class="button button-secondary visafax_upload_image_button" id="visafax_image_button" value="<?php _e( 'Upload Image', 'visafax' ); ?>" />
+        <input type="hidden" id="visafax_image" name="visafax_image" value="">
+        <div id="visafax_image_preview"></div>
+    </div>
+    <?php
+}
+add_action( 'citizen_country_add_form_fields', 'visafax_add_taxonomy_image_field', 10, 2 );
+add_action( 'travel_country_add_form_fields', 'visafax_add_taxonomy_image_field', 10, 2 );
+
+// Add image upload field to 'Edit' form
+function visafax_edit_taxonomy_image_field( $term ) {
+    $image_id = get_term_meta( $term->term_id, 'visafax_image', true );
+    ?>
+    <tr class="form-field term-group-wrap">
+        <th scope="row"><label for="visafax_image"><?php _e( 'Country Flag', 'visafax' ); ?></label></th>
+        <td>
+            <input type="button" class="button button-secondary visafax_upload_image_button" id="visafax_image_button" value="<?php _e( 'Upload Image', 'visafax' ); ?>" />
+            <input type="hidden" id="visafax_image" name="visafax_image" value="<?php echo esc_attr( $image_id ); ?>">
+            <div id="visafax_image_preview">
+                <?php if ( $image_id ) : ?>
+                    <img src="<?php echo wp_get_attachment_image_url( $image_id, 'thumbnail' ); ?>" style="max-width: 150px;">
+                <?php endif; ?>
+            </div>
+        </td>
+    </tr>
+    <?php
+}
+add_action( 'citizen_country_edit_form_fields', 'visafax_edit_taxonomy_image_field', 10, 2 );
+add_action( 'travel_country_edit_form_fields', 'visafax_edit_taxonomy_image_field', 10, 2 );
+
+
+// Save term image meta
+function visafax_save_taxonomy_image( $term_id ) {
+    if ( isset( $_POST['visafax_image'] ) && '' !== $_POST['visafax_image'] ) {
+        $image = intval( $_POST['visafax_image'] );
+        update_term_meta( $term_id, 'visafax_image', $image );
+    } else {
+        delete_term_meta( $term_id, 'visafax_image' );
+    }
+}
+add_action( 'created_citizen_country', 'visafax_save_taxonomy_image', 10, 2 );
+add_action( 'edited_citizen_country', 'visafax_save_taxonomy_image', 10, 2 );
+add_action( 'created_travel_country', 'visafax_save_taxonomy_image', 10, 2 );
+add_action( 'edited_travel_country', 'visafax_save_taxonomy_image', 10, 2 );
+
+
+

@@ -1,12 +1,10 @@
 <?php
 
-// Register shortcode for visa search filter box
-add_shortcode('visafax_search_filter_box', 'search_filter_box_shortcode');
+add_shortcode( "visafax_search_filter_box", "search_filter_box_shortcode" );
 
 function search_filter_box_shortcode() {
     ob_start();
 
-    // Get the country slug from the URL if available
     $exploded = explode('/', $_SERVER['REQUEST_URI']);
     $selectedCountry = isset($exploded[3]) ? sanitize_text_field($exploded[3]) : '';
 
@@ -22,22 +20,25 @@ function search_filter_box_shortcode() {
                         <?php
                         $countries = get_terms(array('taxonomy' => 'citizen_country', 'hide_empty' => false));
                         foreach ($countries as $country) {
-                            $plugin_url = plugin_dir_url(__DIR__); 
-                            $country_image = $plugin_url . 'assets/flags/' . esc_attr($country->slug) . '.png';
+
+                            $country_image_id = get_term_meta($country->term_id, 'visafax_image', true);
+
+                            $country_image = $country_image_id ? wp_get_attachment_image_url($country_image_id, 'thumbnail') : plugin_dir_url(__DIR__) . 'assets/flags/default.png';
+
                             echo '<option value="' . esc_attr($country->term_id) . '" data-image="' . esc_attr($country_image) . '">' . esc_html($country->name) . '</option>';
                         }
                         ?>
                     </select>
 
-                    <!-- Custom Dropdown (Citizen Country) -->
                     <div class="select_option" data-select="citizen_country">
                         <img src="<?php echo esc_attr($country_image); ?>" alt="">
-                        <?php echo esc_html($country->name); ?>
+                        <span><?php esc_html_e($country->name, 'visafax'); ?></span>
                     </div>
 
                     <div class="custom_dropdown">
-                        <?php foreach ($countries as $country) : 
-                            $country_image = plugin_dir_url(__DIR__) . 'assets/flags/' . esc_attr($country->slug) . '.png';
+                        <?php foreach ($countries as $country) :
+                            $country_image_id = get_term_meta($country->term_id, 'visafax_image', true);
+                            $country_image = $country_image_id ? wp_get_attachment_image_url($country_image_id, 'thumbnail') : plugin_dir_url(__DIR__) . 'assets/flags/default.png';
                         ?>
                             <div data-value="<?php echo esc_attr($country->term_id); ?>" data-image="<?php echo esc_attr($country_image); ?>">
                                 <img src="<?php echo esc_attr($country_image); ?>" alt="">
@@ -58,22 +59,25 @@ function search_filter_box_shortcode() {
                         $countries = get_terms(array('taxonomy' => 'travel_country', 'hide_empty' => false));
                         foreach ($countries as $country) {
                             $isSelected = $selectedCountry === $country->slug ? 'selected="selected"' : '';
-                            $plugin_url = plugin_dir_url(__DIR__); 
-                            $country_image = $plugin_url . 'assets/flags/' . esc_attr($country->slug) . '.png';
+
+                            $country_image_id = get_term_meta($country->term_id, 'visafax_image', true);
+
+                            $country_image = $country_image_id ? wp_get_attachment_image_url($country_image_id, 'thumbnail') : plugin_dir_url(__DIR__) . 'assets/flags/default.png';
+                            
                             echo '<option value="' . esc_attr($country->term_id) . '" data-image="' . esc_attr($country_image) . '" ' . $isSelected . '>' . esc_html($country->name) . '</option>';
                         }
                         ?>
                     </select>
 
-                    <!-- Custom Dropdown (Travel Country) -->
                     <div class="select_option" data-select="travel_country">
-                        <img src="" alt="" />
-                        <span><?php esc_html_e('Destination Country', 'visafax'); ?></span>
+                        <img src="<?php echo esc_attr($country_image); ?>" alt="<?php echo esc_attr($country_image); ?>">                 
+                        <span><?php esc_html_e('Country Name', 'visafax'); ?></span>
                     </div>
 
                     <div class="custom_dropdown">
-                        <?php foreach ($countries as $country) : 
-                            $country_image = plugin_dir_url(__DIR__) . 'assets/flags/' . esc_attr($country->slug) . '.png';
+                        <?php foreach ($countries as $country) :
+                            $country_image_id = get_term_meta($country->term_id, 'visafax_image', true);
+                            $country_image = $country_image_id ? wp_get_attachment_image_url($country_image_id, 'thumbnail') : plugin_dir_url(__DIR__) . 'assets/flags/default.png';
                         ?>
                             <div data-value="<?php echo esc_attr($country->term_id); ?>" data-image="<?php echo esc_attr($country_image); ?>">
                                 <img src="<?php echo esc_attr($country_image); ?>" alt="">
@@ -98,7 +102,6 @@ function search_filter_box_shortcode() {
                         ?>
                     </select>
 
-                    <!-- Custom Dropdown (Visa Category) -->
                     <div class="select_option" data-select="visa_category">
                         <span><?php esc_html_e('--Select Your Visa--', 'visafax'); ?></span>
                     </div>
@@ -116,7 +119,7 @@ function search_filter_box_shortcode() {
             <!-- Submit Button -->
             <button type="submit" class="thm-btn submit__btn btn-primary"><?php esc_html_e('Check Details', 'visafax'); ?></button>
         </form>
-        
+
         <br>
         
         <!-- Error and Results Section -->

@@ -41,6 +41,7 @@ function visa_partner_search() {
             $citizen_country_terms = wp_get_post_terms($post_id, 'citizen_country', array('fields' => 'all'));
             $citizen_term = $citizen_country_terms ? $citizen_country_terms : null;
 
+
             $posts[] = array(
                 'title' => get_the_title(),
                 'url' => get_permalink(),
@@ -48,6 +49,7 @@ function visa_partner_search() {
                 'citizens' => $citizen_term,
                 'meta' => get_post_meta($post_id, '', true),
                 'image' => get_post_meta($post_id, 'full_image', true), 
+              
             );
         }
         wp_send_json_success(array('posts' => $posts));

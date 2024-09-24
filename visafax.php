@@ -62,6 +62,15 @@ function visafax_enqueue_files() {
     ]);
 }
 
+// Enqueue Media Uploader Scripts 
+function visafax_enqueue_media_uploader() {
+    if ( isset( $_GET['taxonomy'] ) && in_array( $_GET['taxonomy'], array( 'citizen_country', 'travel_country' ) ) ) {
+        wp_enqueue_media();
+        wp_enqueue_script( 'visafax-media-uploader', plugin_dir_url( __FILE__ ) . 'assets/js/visafax-media-uploader.js', array( 'jquery' ), null, true );
+    }
+}
+add_action( 'admin_enqueue_scripts', 'visafax_enqueue_media_uploader' );
+
 
 
 // Activation hook
