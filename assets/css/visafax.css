@@ -5,6 +5,7 @@
   border-radius: 10px;
 	box-shadow: 0px 30px 45px rgba(122, 146, 168, 0.08);
   border: 1px solid #EDF3F5;
+  position: relative;
 }
 .visa_search_box .sub_heading {
   color: #787b84;
@@ -20,10 +21,13 @@
   width: 100%;
   gap: 2%;
   margin: 40px 0px 20px;
+  position: relative;
 }
 
 .select-box {
   flex-basis: 30%;
+  position: relative;
+  overflow: visible;
 }
 
 
@@ -55,7 +59,6 @@
   border-radius: 10px;
   position: relative;
   width: 100%;
-  max-width: 228.08px;
 }
 
 /* Style for the selected option */
@@ -77,7 +80,6 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   width: 100%;
-  max-width: 228.08px;
   z-index: 999;
 }
 

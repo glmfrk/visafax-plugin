@@ -97,3 +97,26 @@ document.addEventListener('click', function (event) {
 });
 
 
+// Dropdown search functionality
+document.querySelectorAll('.custom_dropdown').forEach(dropdown => {
+   const searchInput = dropdown.querySelector('.search_field');
+  
+   const options = dropdown.querySelectorAll('div');
+
+   searchInput.addEventListener('input', function () {
+    const filterValue = this.value.toLowerCase();
+    options.forEach(option => {
+        const optionText = option.textContent.toLowerCase();
+        
+        
+        // If the option matches the search value, show it; otherwise, hide it
+        if (optionText.includes(filterValue)) {
+            option.style.display = 'block';
+        } else {
+            option.style.display = 'none';
+        }
+    })
+   })
+});
+
+

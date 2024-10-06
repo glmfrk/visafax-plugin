@@ -36,6 +36,7 @@ function search_filter_box_shortcode() {
                     </div>
 
                     <div class="custom_dropdown">
+                    <input type="text" class="search_field" value="<?php echo get_search_query() ?>" name="search_field" id="search_field" placeholder="<?php esc_html_e('Search country...', 'visafax'); ?>">
                         <?php foreach ($countries as $country) :
                             $country_image_id = get_term_meta($country->term_id, 'visafax_image', true);
                             $country_image = $country_image_id ? wp_get_attachment_image_url($country_image_id, 'thumbnail') : plugin_dir_url(__DIR__) . 'assets/flags/default.png';
@@ -75,6 +76,7 @@ function search_filter_box_shortcode() {
                     </div>
 
                     <div class="custom_dropdown">
+                    <input type="text" class="search_field" value="<?php echo get_search_query() ?>" name="search_field" id="search_field" placeholder="<?php esc_html_e('Search country...', 'visafax'); ?>">
                         <?php foreach ($countries as $country) :
                             $country_image_id = get_term_meta($country->term_id, 'visafax_image', true);
                             $country_image = $country_image_id ? wp_get_attachment_image_url($country_image_id, 'thumbnail') : plugin_dir_url(__DIR__) . 'assets/flags/default.png';
@@ -107,6 +109,7 @@ function search_filter_box_shortcode() {
                     </div>
 
                     <div class="custom_dropdown">
+                    <input type="text" class="search_field" value="<?php echo get_search_query() ?>" name="search_field" id="search_field" placeholder="<?php esc_html_e('Search your visa...', 'visafax'); ?>">
                         <?php foreach ($categories as $category) : ?>
                             <div data-value="<?php echo esc_attr($category->term_id); ?>">
                                 <?php echo esc_html($category->name); ?>
